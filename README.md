@@ -2,7 +2,7 @@
 
 > [Manticore](https://manticoresearch.com/) demo application, written with [Golang](https://go.dev/), [Vue.js](https://vuejs.org/) and [Axios](https://axios-http.com/).
 
-![Screenshot](/home/jonathan/Dev/ankorstore/sandbox/manticore-go-demo/doc/screenshot.png)
+![Screenshot](doc/screenshot.png)
 
 ## Usage
 
