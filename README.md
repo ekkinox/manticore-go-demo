@@ -1,6 +1,6 @@
  # Manticore Demo
 
-> [Manticore](https://manticoresearch.com/) demo application, written with [Golang](https://go.dev/), [Vue.js](https://vuejs.org/) and [Axios](https://axios-http.com/).
+> [Manticore](https://manticoresearch.com/) movies search demo application, written with [Golang](https://go.dev/), [Vue.js](https://vuejs.org/) and [Axios](https://axios-http.com/).
 
 ![Screenshot](doc/screenshot.png)
 
