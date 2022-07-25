@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <title>Manticore Demo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/be40e717f7.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="app" class="container">
+            <div class="jumbotron" style="padding-bottom: 5px">
+                <h3>
+                    <i class="fa fa-search"></i>&nbsp;<strong>Movies Search</strong>
+                </h3>
+                <hr/>
+                <div class="alert alert-primary alert-no-margin-bottom" role="alert">
+                    <a href="https://manticoresearch.com" target="_blank">Manticore</a> demo application, written with <a href="https://go.dev" target="_blank">Golang</a>, <a href="https://vuejs.org" target="_blank">Vue.js</a> and <a href="https://axios-http.com" target="_blank">Axios</a>.
+                </div>
+            </div>
+            <br/>
+            <div class="card">
+                <div class="card-header">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search movies" aria-label="Search movies" v-model="expression"/>
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" v-on:click="reset">
+                                <span v-if="loading"><i class="fas fa-spinner fa-spin"></i>&nbsp;Loading...</span>
+                                <span v-else><i class="fas fa-sync"></i>&nbsp;Reset</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-columns">
+                        <div class="card" v-for="result in results">
+                            <div class="card-body">
+                                <h6 class="card-title"><strong><i class="fa fa-file-video"></i>&nbsp;{{ result.title }}</strong>&nbsp;<small>({{ result.release_year }})</small></h6>
+                                <p class="card-text">{{ result.description }}</p>
+                                <span class="card-text"><small class="text-muted">Rental rate: {{ result.rental_rate }} %</small></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        axios.defaults.withCredentials = true;
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    loading: false,
+                    expression: "",
+                    results: {},
+                }
+            },
+            watch: {
+                expression(value) {
+                    if (value !== "") {
+                        this.search()
+                    } else {
+                        this.reset()
+                    }
+                }
+            },
+            methods: {
+                search() {
+                    this.loading = true
+                    axios
+                        .get('/search?expression=' + this.expression)
+                        .then(response => this.results = response.data.Results)
+                        .finally(() => this.loading = false)
+                },
+                reset() {
+                    this.expression = ""
+                    this.loading = true
+                    axios
+                        .get('/search')
+                        .then(response => this.results = response.data.Results)
+                        .finally(() => this.loading = false)
+                }
+            },
+            mounted () {
+                this.reset()
+            }
+        })
+    </script>
+</html>

@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  manticore_demo_manticore:
+    container_name: manticore_demo_manticore
+    image: manticoresearch/manticore:latest
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9306:9306"
+      - "9308:9308"
+      - "9312:9312"
+    expose:
+      - 9306
+      - 9308
+      - 9312
+    volumes:
+      - manticore_demo_data:/var/lib/manticore
+    networks:
+      - manticore_demo_network
+
+  manticore_demo_app:
+    container_name: manticore_demo_app
+    build:
+      context: ./app
+    ports:
+      - "8080:8080"
+    networks:
+      - manticore_demo_network
+    environment:
+      MANTICORE_HOST: "manticore_demo_manticore"
+      MANTICORE_PORT: 9312
+      MANTICORE_MODE: "sql"
+      MANTICORE_LIMIT: 100
+
+volumes:
+  manticore_demo_data:
+    driver: local
+
+networks:
+  manticore_demo_network:
+    driver: bridge
