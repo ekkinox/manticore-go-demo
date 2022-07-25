@@ -1,10 +1,10 @@
 package client
 
 import (
-	"github.com/spf13/viper"
 	"log"
 
 	"github.com/manticoresoftware/go-sdk/manticore"
+	"github.com/spf13/viper"
 )
 
 type ManticoreClientSearchResult struct {
