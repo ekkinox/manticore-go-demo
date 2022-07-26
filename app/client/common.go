@@ -23,11 +23,6 @@ func InitManticoreClient() (ManticoreClient, error) {
 	mode := viper.GetString("MANTICORE_MODE")
 	limit := viper.GetInt("MANTICORE_LIMIT")
 
-	//host := "localhost"
-	//port := 9312
-	//mode := "sql"
-	//limit := 300
-
 	client := manticore.NewClient()
 	client.SetServer(host, uint16(port))
 
