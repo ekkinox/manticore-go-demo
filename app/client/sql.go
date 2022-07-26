@@ -25,7 +25,7 @@ func (c ManticoreSqlClient) FindAll(index string) (*ManticoreClientSearchResult,
 
 func (c ManticoreSqlClient) FindByExpression(index string, expression string) (*ManticoreClientSearchResult, error) {
 
-	res, err := c.Client.Sphinxql(fmt.Sprintf(`select * from %s where match('"%s"') limit %d`, index, expression, c.Limit))
+	res, err := c.Client.Sphinxql(fmt.Sprintf(`select * from %s where match('%s') limit %d`, index, expression, c.Limit))
 	if err != nil {
 		log.Printf("error: %v", err)
 		return nil, err
