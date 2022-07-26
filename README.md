@@ -18,7 +18,7 @@ Then, load the sample data (300 movies, persistent volume)
 docker exec -i manticore_demo_manticore mysql < data/movies.sql
 ```
 
-Finally, you can access the application on [http://localhost:8080](http://localhost:8080]) and [try to search movies](https://manual.manticoresearch.com/Searching/Intro).
+Finally, you can access the application on [http://localhost:8080](http://localhost:8080) and [try to search movies](https://manual.manticoresearch.com/Searching/Intro).
 
 ## Configuration
 
