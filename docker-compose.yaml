@@ -36,7 +36,7 @@ services:
     environment:
       MANTICORE_HOST: "manticore_demo_manticore"
       MANTICORE_PORT: 9312
-      MANTICORE_MODE: "sql"
+      MANTICORE_MODE: "json"
       MANTICORE_LIMIT: 100
 
 volumes:
